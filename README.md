@@ -1,0 +1,2 @@
+# Nukta
+Duhovna aplikacija
