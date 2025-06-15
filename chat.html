@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nukta | Duhovni Chat</title>
+</head>
+<body>
+  <h1>Duhovni AI Chat</h1>
+  <textarea id="upit" placeholder="Postavi duhovno pitanje..."></textarea><br>
+  <button onclick="posaljiUpit()">Pošalji</button>
+  <pre id="odgovor"></pre>
+
+  <script src="ai.js"></script>
+  <script>
+    async function posaljiUpit() {
+      const upit = document.getElementById("upit").value;
+      const odgovor = await duhovniUpit(upit);
+      document.getElementById("odgovor").textContent = odgovor;
+    }
+  </script>
+</body>
+</html>
