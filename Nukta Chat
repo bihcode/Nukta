@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nukta Chat | Pitaj Pira</title>
+  <link rel="icon" type="image/x-icon" href="favicon_nukta.ico" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #f8f9fa, #e6ecf2);
+      margin: 0;
+      padding: 20px;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      color: #5a3b8c;
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-style: italic;
+      color: #666;
+    }
+
+    #chat-box {
+      width: 100%;
+      max-width: 700px;
+      height: 400px;
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      overflow-y: auto;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .msg {
+      margin-bottom: 15px;
+      line-height: 1.6em;
+    }
+
+    .user {
+      font-weight: bold;
+      color: #222;
+    }
+
+    .bot {
+      color: #4a3e8c;
+    }
+
+    #user-input {
+      display: flex;
+      width: 100%;
+      max-width: 700px;
+    }
+
+    input {
+      flex-grow: 1;
+      padding: 12px;
+      font-size: 1em;
+      border-radius: 10px 0 0 10px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 12px 20px;
+      font-size: 1em;
+      background-color: #5a3b8c;
+      color: white;
+      border: none;
+      border-radius: 0 10px 10px 0;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #3e2c6d;
+    }
+
+    a {
+      margin-top: 20px;
+      text-decoration: none;
+      color: #5a3b8c;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Nukta Chat</h1>
+  <p>Pitaj srcem. Odgovor dolazi saburom.</p>
+
+  <div id="chat-box"></div>
+
+  <div id="user-input">
+    <input type="text" id="question" placeholder="Postavi pitanje..."/>
+    <button onclick="sendMessage()">Pošalji</button>
+  </div>
+
+  <a href="index.html">⇦ Povratak na početak</a>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById("question");
+      const chat = document.getElementById("chat-box");
+
+      const userMsg = input.value.trim();
+      if (!userMsg) return;
+
+      const userElement = document.createElement("div");
+      userElement.className = "msg";
+      userElement.innerHTML = `<span class="user">Ti:</span> ${userMsg}`;
+      chat.appendChild(userElement);
+
+      const botElement = document.createElement("div");
+      botElement.className = "msg";
+      botElement.innerHTML = `<span class="bot">Nukta:</span> ...`;
+      chat.appendChild(botElement);
+
+      chat.scrollTop = chat.scrollHeight;
+      input.value = "";
+
+      // Simulacija odgovora (dok ne povežemo s GPT-jem)
+      setTimeout(() => {
+        botElement.innerHTML = `<span class="bot">Nukta:</span> <em>“Sjeti se Allaha i On će se tebe sjetiti.”</em>`;
+        chat.scrollTop = chat.scrollHeight;
+      }, 1200);
+    }
+  </script>
+
+</body>
+</html>
