@@ -74,7 +74,7 @@
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer tvoj-api-kljuc-ovdje' // <-- Zamijeni ovo!
+            'Authorization': 'Bearer tvoj-'Authorization': 'Bearer YOUR_OPENAI_API_KEY'' // <-- Zamijeni ovo!
           },
           body: JSON.stringify({
             model: "gpt-4",
