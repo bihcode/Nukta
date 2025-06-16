@@ -18,7 +18,13 @@
       border-radius: 1rem;
       background: #eee;
     }
-    .bubble.user { text-align: right; background: #cce5ff; }
+    .bubble.user {
+      text-align: right;
+      background: #cce5ff;
+    }
+    .bubble.bot {
+      background: #e6ffe6;
+    }
     .input-area {
       display: flex;
       margin-top: 1rem;
@@ -34,34 +40,55 @@
 </head>
 <body>
   <h1>Nukta Chat</h1>
-
   <div id="chat">
-    <div class="bubble">Esselamu alejkum, ja sam Nukta – postavi mi pitanje ili reci: “Vodi me zikrom.”</div>
+    <div class="bubble bot">Esselamu alejkum, ja sam Nukta – postavi mi pitanje.</div>
   </div>
 
   <div class="input-area">
-    <input type="text" id="question" placeholder="Postavi pitanje..." />
+    <input type="text" id="userInput" placeholder="Unesi pitanje..." />
     <button onclick="sendMessage()">Pošalji</button>
   </div>
 
   <script>
-    function sendMessage() {
-      const input = document.getElementById('question');
+    async function sendMessage() {
+      const input = document.getElementById('userInput');
       const chat = document.getElementById('chat');
-      const msg = input.value.trim();
-      if (!msg) return;
+      const message = input.value;
+      if (!message) return;
 
+      // Prikaz korisničkog balona
       const userBubble = document.createElement('div');
       userBubble.className = 'bubble user';
-      userBubble.innerText = msg;
+      userBubble.textContent = message;
       chat.appendChild(userBubble);
-
-      const replyBubble = document.createElement('div');
-      replyBubble.className = 'bubble';
-      replyBubble.innerText = '🌙 Hvala na pitanju. Nukta će uskoro odgovarati duhovno kroz AI.';
-      chat.appendChild(replyBubble);
-
       input.value = '';
+
+      // API poziv (zamijeni sa svojim backendom ili OpenAI endpointom)
+      const responseBubble = document.createElement('div');
+      responseBubble.className = 'bubble bot';
+      responseBubble.textContent = 'Nukta razmišlja...';
+      chat.appendChild(responseBubble);
+
+      try {
+        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer tvoj-api-kljuc-ovdje' // <-- Zamijeni ovo!
+          },
+          body: JSON.stringify({
+            model: "gpt-4",
+            messages: [{ role: "user", content: message }]
+          })
+        });
+
+        const data = await response.json();
+        const reply = data.choices?.[0]?.message?.content || 'Nukta ne može odgovoriti trenutno.';
+
+        responseBubble.textContent = reply;
+      } catch (error) {
+        responseBubble.textContent = 'Greška u komunikaciji sa Nukta serverom.';
+      }
     }
   </script>
 </body>
