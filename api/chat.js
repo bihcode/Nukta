@@ -25,7 +25,7 @@ export default async function handler(req, res) {
 
   try {
     const completion = await openai.createChatCompletion({
-      model: "gpt-4", // može i "gpt-3.5-turbo" ako koristiš besplatni API
+      model: "gpt-3.5-turbo" ako koristiš besplatni API
       messages: [
         {
           role: "system",
