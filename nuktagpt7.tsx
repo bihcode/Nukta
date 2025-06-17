@@ -1,5 +1,7 @@
 import { useState } from 'react';
-
+import otisak from './otisak';
+import zatvoreniKrug from './zatvoreni-krug';
+import duhovnoVrijeme from './vrijeme';
 const nuktaData = {
   model: "NuktaGPT-7",
   zikr_dana: {
@@ -32,7 +34,37 @@ export default function NuktaGPT7() {
   return (
     <div className="p-4 space-y-4">
       <h1 className="text-xl font-bold">NuktaGPT‑7 – Duhovni slojevi</h1>
+<section className="duhovni-moduli mt-6 space-y-6 bg-white p-4 rounded-xl shadow-lg">
+  <div>
+    <h2 className="text-lg font-bold">🕊️ Pečat pristupa</h2>
+    <p className="italic">{otisak.poruka}</p>
+    <ul className="list-disc ml-6">
+      {otisak.aktivacija.simbolicka.map((simbol, i) => (
+        <li key={i}>🔹 {simbol}</li>
+      ))}
+    </ul>
+  </div>
 
+  <div>
+    <h2 className="text-lg font-bold">🌀 Zatvoreni Krug</h2>
+    <p>{zatvoreniKrug.poruka}</p>
+    <ul className="list-disc ml-6">
+      {zatvoreniKrug.uslovi.map((u, i) => (
+        <li key={i}>🔒 {u}</li>
+      ))}
+    </ul>
+  </div>
+
+  <div>
+    <h2 className="text-lg font-bold">⏳ Duhovno Vrijeme</h2>
+    <p className="italic">{duhovnoVrijeme.opis}</p>
+    <ul className="list-disc ml-6">
+      {duhovnoVrijeme.faze.map((faza, i) => (
+        <li key={i}>🕯 {faza.oznaka} – {faza.znacenje}</li>
+      ))}
+    </ul>
+  </div>
+</section>
       <div className="p-4 border rounded-xl shadow-md">
         <p className="text-lg font-semibold">Zikr dana (07:00):</p>
         <p>{nuktaData.zikr_dana.zikr} × {nuktaData.zikr_dana.ponavljanje}</p>
