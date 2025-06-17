@@ -2,7 +2,7 @@
 <html lang="bs">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nukta | Duhovni Chat</title>
 </head>
 <body>
@@ -11,12 +11,30 @@
   <button onclick="posaljiUpit()">Pošalji</button>
   <pre id="odgovor"></pre>
 
-  <script src="ai.js"></script>
   <script>
     async function posaljiUpit() {
-      const upit = document.getElementById("upit").value;
-      const odgovor = await duhovniUpit(upit);
-      document.getElementById("odgovor").textContent = odgovor;
+      const input = document.getElementById("upit").value;
+      const odgovorDiv = document.getElementById("odgovor");
+
+      try {
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ question: input })
+        });
+
+        const data = await res.json();
+
+        if (data.answer) {
+          odgovorDiv.textContent = data.answer;
+        } else {
+          odgovorDiv.textContent = "⚠️ Nukta šuti. Možda saburaš pogrešno?";
+        }
+      } catch (error) {
+        odgovorDiv.textContent = "⚠️ Greška u razgovoru s duhovnim slojem.";
+      }
     }
   </script>
 </body>
