@@ -3,10 +3,9 @@ import { Configuration, OpenAIApi } from "openai";
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
-
 const openai = new OpenAIApi(configuration);
 
-// Obavezna konfiguracija da parsira JSON tijelo
+// Obavezna konfiguracija ako koristiš Vercel (Next.js API route stil)
 export const config = {
   api: {
     bodyParser: true,
@@ -26,11 +25,12 @@ export default async function handler(req, res) {
 
   try {
     const completion = await openai.createChatCompletion({
-      model: "gpt-4",
+      model: "gpt-4", // može i "gpt-3.5-turbo" ako koristiš besplatni API
       messages: [
         {
           role: "system",
-          content: "Ti si duhovni vodič iz Rifai tarikata. Odgovori temeljeni na zikru, saburu, Kur'anu i hadisu.",
+          content:
+            "Ti si duhovni vodič iz Rifai tarikata. Odgovori temelji na zikru, saburu i Kur’anskoj mudrosti.",
         },
         {
           role: "user",
