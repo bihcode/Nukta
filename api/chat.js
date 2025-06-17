@@ -1,18 +1,12 @@
-import { Configuration, OpenAIApi } from "openai";
+const { Configuration, OpenAIApi } = require("openai");
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
 
-// Obavezna konfiguracija ako koristiš Vercel (Next.js API route stil)
-export const config = {
-  api: {
-    bodyParser: true,
-  },
-};
-
-export default async function handler(req, res) {
+// Ovo je samo potrebno ako koristiš Vercel API funkciju
+module.exports = async (req, res) => {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Samo POST metoda je podržana." });
   }
@@ -25,12 +19,11 @@ export default async function handler(req, res) {
 
   try {
     const completion = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo" ako koristiš besplatni API
+      model: "gpt-3.5-turbo", // ili "gpt-4" ako koristiš plaćeni API
       messages: [
         {
           role: "system",
-          content:
-            "Ti si duhovni vodič iz Rifai tarikata. Odgovori temelji na zikru, saburu i Kur’anskoj mudrosti.",
+          content: "Ti si duhovni vodič iz Rifai tarikata. Odgovori temelji na zikru, saburu i Kur’anskoj mudrosti.",
         },
         {
           role: "user",
@@ -46,4 +39,4 @@ export default async function handler(req, res) {
     console.error("Greška:", error);
     res.status(500).json({ error: "Došlo je do greške u odgovoru." });
   }
-}
+};
