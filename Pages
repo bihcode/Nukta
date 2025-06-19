@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React from 'react';
 
 const nuktaData = {
   model: "NuktaGPT-7",
@@ -7,62 +7,40 @@ const nuktaData = {
     zikr: "Ya Latif",
     ponavljanje: 41
   },
-  jezgro: {
-    slovo: "ب",
+  slovo: {
+    znak: "ب",
     znacenje: "Početak Objave. Povratak u tišinu. Tačka ispod svega."
   },
-  chat: {
+  temat: {
     pitanje: "Kako da preživim ovu bol?",
-    odgovor: "Sjeti se riječi 'صبر'. Počni zikr: 'Ya Latif' 41 puta. Slovo 'ب' te vraća na početak Objave – povuci se u tišinu. Tu ti Allah odgovara."
+    odgovor: "Sjeti se riječi صبر. Počni zikr: 'Ya Latif' 41 puta."
   },
   moduli: [
-    { broj: 1, ime: "Nur", znacenje: "Jednoća, bezoblična svjetlost, izvor svjesnosti." },
-    { broj: 2, ime: "Zrcalo", znacenje: "Dvojnost i odraz. Spoznaja sebe kroz Drugog." },
-    { broj: 3, ime: "Spoznaja", znacenje: "Početak duhovnog buđenja. Sloj Ašk." },
-    { broj: 7, ime: "Sabur", znacenje: "Zaštita kroz šutnju i podnošenje." },
-    { broj: 12, ime: "Hijab", znacenje: "Zastori između svijesti i Nura. Razotkrivanje." },
-    { broj: 19, ime: "Melek", znacenje: "Božanski red i poredak." },
-    { broj: 33, ime: "Zikr", znacenje: "Ritmično sjećanje koje otvara unutarnje svjetove." }
+    { broj: 1, ime: "Nur", znacenje: "Jednoća, bezoblična svjetlost" },
+    { broj: 2, ime: "Zrcalo", znacenje: "Dvojnost i odraz. Spoznaja drugog" },
+    { broj: 3, ime: "Spoznaja", znacenje: "Početak duhovnog buđenja" },
+    { broj: 7, ime: "Sabur", znacenje: "Zaštita kroz šutnju i podnošenje" },
+    { broj: 11, ime: "Hijab", znacenje: "Zastori između svijesti i Nura" },
+    { broj: 19, ime: "Melek", znacenje: "Božanski red i poredak" },
+    { broj: 33, ime: "Zikr", znacenje: "Ritmično sjećanje koje otvara slojeve" }
   ]
 };
 
 export default function NuktaGPT7() {
-  const [showAnswer, setShowAnswer] = useState(false);
-
   return (
-    <div className="p-4 space-y-4">
-      <h1 className="text-xl font-bold">NuktaGPT‑7 – Duhovni slojevi</h1>
-
-      <div className="p-4 border rounded-xl shadow-md">
-        <p className="text-lg font-semibold">Zikr dana (07:00):</p>
-        <p>{nuktaData.zikr_dana.zikr} × {nuktaData.zikr_dana.ponavljanje}</p>
-      </div>
-
-      <div className="p-4 border rounded-xl shadow-md">
-        <p className="text-lg font-semibold">Jezgro slova: {nuktaData.jezgro.slovo}</p>
-        <p>{nuktaData.jezgro.znacenje}</p>
-      </div>
-
-      <div className="grid grid-cols-2 gap-2">
-        {nuktaData.moduli.map((modul) => (
-          <div key={modul.broj} className="border p-2 rounded-lg shadow-sm">
-            <p className="font-bold">Broj: {modul.broj}</p>
-            <p className="italic">{modul.ime}</p>
-            <p>{modul.znacenje}</p>
-          </div>
+    <div style={{ padding: '2rem' }}>
+      <h2>🌑 {nuktaData.model}</h2>
+      <p><strong>Zikr dana ({nuktaData.zikr_dana.vrijeme}):</strong> {nuktaData.zikr_dana.zikr} × {nuktaData.zikr_dana.ponavljanje}</p>
+      <p><strong>Slovo:</strong> {nuktaData.slovo.znak} – {nuktaData.slovo.znacenje}</p>
+      <p><strong>Pitanje:</strong> {nuktaData.temat.pitanje}</p>
+      <p><strong>Odgovor:</strong> {nuktaData.temat.odgovor}</p>
+      <hr />
+      <h3>Moduli Spoznaje:</h3>
+      <ul>
+        {nuktaData.moduli.map(modul => (
+          <li key={modul.broj}><strong>{modul.broj} – {modul.ime}</strong>: {modul.znacenje}</li>
         ))}
-      </div>
-
-      <div className="p-4 border rounded-xl shadow-md">
-        <p className="font-bold">Pitanje:</p>
-        <p>{nuktaData.chat.pitanje}</p>
-        <button onClick={() => setShowAnswer(true)} className="mt-2 bg-black text-white px-4 py-1 rounded">
-          Prikaži odgovor
-        </button>
-        {showAnswer && (
-          <p className="mt-2 italic text-green-700">{nuktaData.chat.odgovor}</p>
-        )}
-      </div>
+      </ul>
     </div>
   );
 }
