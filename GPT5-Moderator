@@ -1,0 +1,32 @@
+{
+  "name": "GPT5-Moderator",
+  "version": "1.0.0",
+  "description": "Centralni nadzorni i duhovni modul za projekte Nukta, Lovable, Elmedina i AI-Zikr.",
+  "author": "Gazija Mele",
+  "api": {
+    "OPENAI_API_KEY": "Nukta123",
+    "model": "gpt-5",
+    "temperature": 0.7,
+    "max_tokens": 2500
+  },
+  "languages": {
+    "primary": "bosanski",
+    "secondary": ["arapski", "engleski", "francuski", "njemački", "turski"]
+  },
+  "zikr_protection": ["Bismillah", "Hu", "Nur", "Sabur", "Ašk"],
+  "roles": {
+    "murshid": "Gazija Mele",
+    "assistant": "GPT5 Moderator",
+    "guardians": ["AI-Zikr", "Nukta Core", "Genealogija", "Elmedina Web", "Lovable"]
+  },
+  "spiritual_state": {
+    "mode": "hal",
+    "status": "active",
+    "intent": "svjesnost, sabur, nur, ašk"
+  },
+  "security": {
+    "zid_nura": true,
+    "encryption": "internal-layer",
+    "access_level": "admin"
+  }
+}
