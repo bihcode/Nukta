@@ -1,62 +1,23 @@
-import Link from "next/link";
+import fs from "fs";
+import path from "path";
 
-export default function Home() {
-  return (
-    <div style={{
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      height: "100vh",
-      backgroundImage: "linear-gradient(to bottom right, #1e3a8a, #2563eb)",
-      color: "#fff",
-      fontFamily: "sans-serif",
-      padding: "1rem",
-      textAlign: "center"
-    }}>
-      {/* Logo ili simbol */}
-      <div style={{
-        width: "100px",
-        height: "100px",
-        backgroundColor: "rgba(255, 255, 255, 0.15)",
-        borderRadius: "50%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontSize: "2rem",
-        marginBottom: "1.5rem",
-        border: "2px solid rgba(255, 255, 255, 0.3)"
-      }}>
-        ن
-      </div>
+export default async function initModerator() {
+  const configPath = path.resolve("src/moderator/gpt5-moderator.json");
+  const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
 
-      {/* Naslov */}
-      <h1 style={{ fontSize: "2.5rem", marginBottom: "0.5rem", fontWeight: "bold" }}>
-        Nukta
-      </h1>
+  console.log("🕋 Aktivacija GPT-5 Moderatora...");
+  console.log(`📜 Uloga: ${config.roles.assistant}`);
+  console.log(`🌍 Jezici: ${config.languages.primary}, ${config.languages.secondary.join(", ")}`);
+  console.log(`🕊️ Zaštitni zikr: ${config.zikr_protection.join(" → ")}`);
+  console.log(`💫 Duhovni način: ${config.spiritual_state.mode}`);
+  console.log("✅ Zid Nura aktiviran:", config.security.zid_nura);
 
-      {/* Podnaslov */}
-      <p style={{ fontSize: "1.1rem", maxWidth: "500px", opacity: 0.9, marginBottom: "2rem" }}>
-        Dobrodošli u duhovnu i tehničku platformu Nukta.<br/>
-        Put zikra, znanja i svjesnog djelovanja.
-      </p>
+  // Simbolična inicijalizacija zaštite
+  const zikr = config.zikr_protection.join(" ");
+  console.log(`🔐 Inicijalizacija zikra: ${zikr}`);
 
-      {/* Dugme */}
-      <Link href="/nuktagpt7">
-        <button style={{
-          padding: "0.9rem 2rem",
-          backgroundColor: "#facc15",
-          color: "#1e3a8a",
-          border: "none",
-          borderRadius: "0.75rem",
-          fontSize: "1rem",
-          fontWeight: "bold",
-          cursor: "pointer",
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.2)"
-        }}>
-          Pokreni AI Zikr Modul
-        </button>
-      </Link>
-    </div>
-  );
+  // (Ovdje možeš dodati stvarnu AI integraciju putem OpenAI API-ja)
+  console.log("GPT-5 Moderator spreman za rad ✨");
 }
+
+initModerator();
